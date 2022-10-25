@@ -26,7 +26,7 @@ const postApi = axios.create({
 
 export const getImages = async query => {
     const {data} = await postApi.get('/', {params: {q: query, image_type: 'photo',
-        orientation:'horizintal',
+        orientation:'horizontal',
         page: 1,
         per_page: 12,
     }
