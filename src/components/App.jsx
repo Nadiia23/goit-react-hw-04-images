@@ -1,71 +1,111 @@
-import React, { Component } from 'react';
-import ImageGalleryList from './ImageGallery/ImageCalleryList';
-import { Searchbar } from './Searchbar/Searchbar';
-import Button from './Button/Button';
+import React, { Component } from "react";
+import Searchbar from "./Searchbar/Searchbar";
+import ImageGallery from "./ImageGallery/ImageCalleryList";
+import Button from "./Button/Button";
+import Loader from "./Loader/Loader";
+import Modal from "./Modal/Modal";
+import { getImages } from '../helpers/api';
+import s from './App.module.css'
+
 
 export class App extends Component {
+
   state = {
-    page: 1,
+    status: 'idle',
+    images: [],
+    currentPage: 1,
     query: '',
-  };
+    isModalOpen: false,
+    error: null,
+    largeImageURL: '',
+    largeImageALT: '',
+    totalImages: 0,
+  }
+  
+  componentDidUpdate(_, prevState) {
+
+    const prevQuery = prevState.query;
+    const nextQuery = this.state.query;
+
+    if (prevQuery !== nextQuery) {
+      this.setState({ status: 'pending' })
+      
+      setTimeout(() => {
+        this.getImagesApi(); 
+      }, 1000)
+           
+    }
+  }
+
+  
+
+getImagesApi = async () => {
+    const { currentPage, query } = this.state;
+    
+    try {
+      const { hits, totalHits } = await getImages(query, currentPage);
+ 
+        this.setState(prevState => ({
+          images: [...prevState.images, ...hits],
+          currentPage: prevState.currentPage + 1,
+          status: 'resolved',
+          totalImages: hits.length,
+        }))
+      
+        if (totalHits === 0) {
+          this.setState({ status: 'rejected' })
+        }
+
+    } catch (error) {
+      console.log(error)    
+      this.setState({ error })
+    }
+}
+  
 
   handleSubmit = query => {
-    this.setState({ query });
-  };
+    this.setState({
+      images: [],
+      query: query,
+      currentPage: 1,
+      error: null
+    });
+  }
 
-  loadMore = e => {
-    e.preventDefault();
-    if (e) {
-      this.setState(prevState => {
-        return {
-          page: prevState.page + 1,
-        };
-      });
-    }
-  };
+  toggleModal = () => {
+    this.setState(prevState => ({isModalOpen: !prevState.isModalOpen}))
+  }
+  
 
-
-  //   handleChange = e => {
-  //     // e.preventDefault();
-  //     this.setState({
-  //       page: 1,
-  //       query: '',
-  //     });
-  //     // e.target.reset();
-  // }
-
-  //   async componentDidMount() {
-  //     const images = await API.getImages();
-  //     this.setState({ images });
-  // }
-
-  //   componentDidUpdate(_, prevState) {
-  //     if (
-  //       prevState.page !== this.state.page ||
-  //       prevState.query !== this.state.query
-  //     ) {
-  //       console.log('fetch page')
-  //     }
-
-  // }
+  handleImageClick = (url, alt) => {
+    this.setState({ largeImageURL: url, largeImageALT: alt });
+    this.toggleModal();
+  }
 
   render() {
-    const { query } = this.state;
+    const { status, images, isModalOpen, largeImageALT, largeImageURL } = this.state
+    
     return (
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr',
-          gridGap: 16,
-          paddingBottom: 24,
-        }}
-      >
+      <div className={s.app}>
         <Searchbar onSubmit={this.handleSubmit} />
-        <ImageGalleryList value={query} />
-        <Button onClick={this.loadMore} />
+        {status === 'idle' && <h2 className={s.title}>Please enter your request</h2>}
+        {status === 'pending' && <Loader />}
+        {status === 'rejected' && <h2 className={s.title}>Unfortunately, nothing was found for your request</h2>}
+        {status === 'resolved' && (
+          <>
+            <ImageGallery images={images} onOpenModal={this.handleImageClick} />
+            <Button onNextPage={this.getImagesApi}/>
+            {isModalOpen && (
+              <Modal
+                src={largeImageURL}
+                alt={largeImageALT}
+                onModalClose={this.toggleModal}
+              />)}
+          </>
+        )}      
       </div>
-    );
-  }
+    )
+  }  
 }
 
 export default App;
