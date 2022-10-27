@@ -12,7 +12,7 @@ class Modal extends Component {
         window.removeEventListener('keydown', this.handleCloseKey)
     }
 
-    handleModaleClose = event => {
+    handleModalClose = event => {
         const { onModalClose } = this.props;
         if (event.target === event.currentTarget) {
             onModalClose()
@@ -29,9 +29,9 @@ class Modal extends Component {
     
     render() {
          return (
-            <div className={s.overlay} onClick={this.handleModaleClose}>
+            <div className={s.overlay} onClick={this.handleModalClose}>
                 <div className={s.modal}>
-                    <img src={this.props.src} alt={this.props.alt} />
+                    <img src={this.props.src} alt={this.props.tags} />
                 </div>
             </div>
         )
@@ -41,7 +41,7 @@ class Modal extends Component {
 Modal.propTypes = {
     onModalClose: PropTypes.func.isRequired,
     src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
+    tags: PropTypes.string,
 }
 
 export default Modal;

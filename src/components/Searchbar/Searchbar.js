@@ -8,27 +8,30 @@ class Searchbar extends Component {
     query: '',
   };
 
+  
   handleChange = event => {
     this.setState({ query: event.currentTarget.value });
   };
 
-  handleSumbit = event => {
+
+
+  handleSubmit = event => {
     event.preventDefault();
     if (this.state.query.trim() === '') {
-      alert('Enter your search query');
+      alert('Please fill out the search field');
       return;
     }
-
     this.props.onSubmit(this.state.query);
     this.setState({ query: '' });
   };
+
 
   render() {
     const { query } = this.state;
 
     return (
       <header className={s.searchbar}>
-        <form className={s.searchForm} onSubmit={this.handleSumbit}>
+        <form className={s.searchForm} onSubmit={this.handleSubmit}>
           <button type="submit" className={s.searchFormButton}><ImSearch/></button>
 
           <input

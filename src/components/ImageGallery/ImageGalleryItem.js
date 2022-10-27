@@ -1,12 +1,12 @@
 import s from './imageGallery.module.css';
 
-const ImageGalleryItem = ({image, onOpenModal}) => {
+const ImageGalleryItem = ({id, web, tags, largeImageURL, onOpenModal}) => {
     return (
-        <li className={s.imageGalleryItem} key={image.id}>
+        <li className={s.imageGalleryItem} key={id} onClick={() => onOpenModal(largeImageURL, tags)}>
             <img className={s.imageGalleryItemImage}
-                src={image.webformatURL}
-                alt={image.tags}
-                onClick={() => onOpenModal(image.largeImageURL, image.tags)}/>
+                src={web}
+                alt={tags}
+                />
         </li>
     )
 }
