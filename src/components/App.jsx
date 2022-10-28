@@ -35,7 +35,7 @@ class App extends Component {
       });
     }
 
-    if (this.state.page !== prevState.page) {
+    if (this.state.page !== prevState.page && this.state.page !== 1) {
       const data = await getImages(this.state.query, this.state.page);
       this.setState(prevState => ({
         images: [...prevState.images, ...data.hits],
