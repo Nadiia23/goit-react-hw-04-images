@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Nadiia23/goit-react-hw-04-images.git/static/css/main.e3477a01.css",
+    "main.js": "/Nadiia23/goit-react-hw-04-images.git/static/js/main.c6bf069f.js",
+    "index.html": "/Nadiia23/goit-react-hw-04-images.git/index.html",
+    "main.e3477a01.css.map": "/Nadiia23/goit-react-hw-04-images.git/static/css/main.e3477a01.css.map",
+    "main.c6bf069f.js.map": "/Nadiia23/goit-react-hw-04-images.git/static/js/main.c6bf069f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e3477a01.css",
+    "static/js/main.c6bf069f.js"
+  ]
+}
