@@ -31,8 +31,8 @@ const App = () => {
       if (query) {
         setIsLoading(true);
         const data = await getImages(query, page);
-        setIsLoading(false);
         setImages(data.hits);
+        setIsLoading(false);
         setTotalHits(data.totalHits);
       }
     };
