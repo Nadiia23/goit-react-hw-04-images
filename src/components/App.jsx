@@ -25,7 +25,7 @@ const App = () => {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [error, setError] = useState(null);
+  // const [error, setError] = useState(null);
   const [largeImageURL, setLargeImageURL] = useState('');
   const [largeImageALT, setLargeImageALT] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -54,20 +54,20 @@ const App = () => {
   //   }
   // }
 
-  useEffect(() => {
-    setIsLoading(true)
-    const getApi = async () => {
-      try {
-        const data = await getImages();
-        setImages(data.hits)
-      } catch {
-        setError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    getApi();
-  }, [])
+  // useEffect(() => {
+  //   setIsLoading(true)
+  //   const getApi = async () => {
+  //     try {
+  //       const data = await getImages();
+  //       setImages(data.hits)
+  //     } catch {
+  //       setError(true);
+  //     } finally {
+  //       setIsLoading(false);
+  //     }
+  //   };
+  //   getApi();
+  // }, [])
   
   useEffect(() => {
     const getApi = async () => {
