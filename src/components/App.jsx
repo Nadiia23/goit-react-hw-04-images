@@ -29,8 +29,6 @@ const App = () => {
   const [largeImageURL, setLargeImageURL] = useState('');
   const [largeImageALT, setLargeImageALT] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  // const [totalHits, setTotalHits] = useState(0);
-
 
   // async componentDidUpdate(_, prevState) {
   //   if (
