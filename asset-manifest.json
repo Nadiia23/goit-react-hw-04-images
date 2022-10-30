@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Nadiia23/goit-react-hw-04-images.git/static/css/main.e3477a01.css",
-    "main.js": "/Nadiia23/goit-react-hw-04-images.git/static/js/main.c6bf069f.js",
-    "index.html": "/Nadiia23/goit-react-hw-04-images.git/index.html",
-    "main.e3477a01.css.map": "/Nadiia23/goit-react-hw-04-images.git/static/css/main.e3477a01.css.map",
-    "main.c6bf069f.js.map": "/Nadiia23/goit-react-hw-04-images.git/static/js/main.c6bf069f.js.map"
+    "main.css": "/goit-react-hw-04-images/static/css/main.e3477a01.css",
+    "main.js": "/goit-react-hw-04-images/static/js/main.e9b8d855.js",
+    "index.html": "/goit-react-hw-04-images/index.html",
+    "main.e3477a01.css.map": "/goit-react-hw-04-images/static/css/main.e3477a01.css.map",
+    "main.e9b8d855.js.map": "/goit-react-hw-04-images/static/js/main.e9b8d855.js.map"
   },
   "entrypoints": [
     "static/css/main.e3477a01.css",
-    "static/js/main.c6bf069f.js"
+    "static/js/main.e9b8d855.js"
   ]
 }
