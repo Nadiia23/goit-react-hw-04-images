@@ -9,65 +9,15 @@ import s from './App.module.css';
 
 const App = () => {
 
-  //  state = {
-  //   images: [],
-  //   page: 1,
-  //   query: '',
-  //   isModalOpen: false,
-  //   error: null,
-  //   largeImageURL: '',
-  //   largeImageALT: '',
-  //   isLoading: false,
-  // }
-
-
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [error, setError] = useState(null);
   const [largeImageURL, setLargeImageURL] = useState('');
   const [largeImageALT, setLargeImageALT] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [totalHits, setTotalHits] = useState(0)
 
-  // async componentDidUpdate(_, prevState) {
-  //   if (
-  //     prevState.query !== this.state.query &&
-  //     this.state.query !== ''
-  //   ) {
-  //     this.setState({ isLoading: true });
-  //     const data = await getImages(this.state.query, this.state.page);
-  //     // console.log(data);
-
-  //     this.setState({
-  //       images: data.hits,
-  //       isLoading: false,
-  //     });
-  //   }
-
-  //   if (this.state.page !== prevState.page && this.state.page !== 1) {
-  //     const data = await getImages(this.state.query, this.state.page);
-  //     this.setState(prevState => ({
-  //       images: [...prevState.images, ...data.hits],
-  //       isLoading: false,
-  //     }));
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   setIsLoading(true)
-  //   const getApi = async () => {
-  //     try {
-  //       const data = await getImages();
-  //       setImages(data.hits)
-  //     } catch {
-  //       setError(true);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   getApi();
-  // }, [])
   
   useEffect(() => {
     const getApi = async () => {
@@ -75,6 +25,7 @@ const App = () => {
         const data = await getImages(query, page);
         setImages(prevImages => [...prevImages, ...data.hits]);
         setIsLoading(false);
+        setTotalHits(data.totalHits);
         return;
       }
       if (query) {
@@ -82,6 +33,7 @@ const App = () => {
         const data = await getImages(query, page);
         setIsLoading(false);
         setImages(data.hits);
+        setTotalHits(data.totalHits);
       }
     };
     getApi();
@@ -114,7 +66,8 @@ const App = () => {
           (<Loader />) :
        
           (<ImageGalleryList images={images} onOpenModal={handleImageClick} />)}
-        {query && !isLoading && (<Button onNextPage={loadMore} />)}
+        
+        {totalHits > images.length && query && !isLoading && (<Button onNextPage={loadMore} />)}
             
         {isModalOpen && (
           <Modal

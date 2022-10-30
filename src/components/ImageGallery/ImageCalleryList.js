@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import s from './imageGallery.module.css';
 
 const ImageGalleryList = ({ images, onOpenModal }) => {
-  console.log(images);
   return (
     <ul className={s.imageGallery}>
       {images.map(image => {
@@ -12,9 +11,8 @@ const ImageGalleryList = ({ images, onOpenModal }) => {
             key={image.id}
             id={image.id}
             web={image.webformatURL}
-                largeImageURL={image.largeImageURL}
+            largeImageURL={image.largeImageURL}
             alt= { image.tags }
-            // image={image}
             onOpenModal={onOpenModal}
           />
         );

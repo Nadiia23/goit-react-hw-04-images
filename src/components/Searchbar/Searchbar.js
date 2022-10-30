@@ -4,9 +4,6 @@ import PropTypes from 'prop-types';
 import s from './search.module.css';
 
 export const Searchbar = ({onSubmit}) => {
-  // state = {
-  //   query: '',
-  // };
   const [query, setQuery] = useState('');
 
   
