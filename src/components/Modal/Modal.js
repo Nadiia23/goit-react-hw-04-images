@@ -1,47 +1,41 @@
-import React, { Component } from "react";
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import s from './modal.module.css'
+import s from './modal.module.css';
 
-class Modal extends Component {
+const Modal = ({ src, tags, onModalClose }) => {
+  useEffect(() => {
+    const handleCloseKey = event => {
+      if (event.code === 'Escape') {
+        onModalClose();
+      }
+    };
 
-    componentDidMount() {
-        window.addEventListener('keydown', this.handleCloseKey)
+    window.addEventListener('keydown', handleCloseKey);
+
+    return () => {
+      window.removeEventListener('keydown', handleCloseKey);
+    };
+  }, [onModalClose]);
+
+  const handleModalClose = event => {
+    if (event.target === event.currentTarget) {
+      onModalClose();
     }
+  };
 
-    componentWillUnmount() {
-        window.removeEventListener('keydown', this.handleCloseKey)
-    }
-
-    handleModalClose = event => {
-        const { onModalClose } = this.props;
-        if (event.target === event.currentTarget) {
-            onModalClose()
-        }
-    }
-
-    handleCloseKey = event => {
-        const { onModalClose } = this.props;
-
-        if (event.code === 'Escape') {
-            onModalClose();
-        }
-    }
-    
-    render() {
-         return (
-            <div className={s.overlay} onClick={this.handleModalClose}>
-                <div className={s.modal}>
-                    <img src={this.props.src} alt={this.props.tags} />
-                </div>
-            </div>
-        )
-    }
-}
+  return (
+    <div className={s.overlay} onClick={handleModalClose}>
+      <div className={s.modal}>
+        <img src={src} alt={tags} />
+      </div>
+    </div>
+  );
+};
 
 Modal.propTypes = {
-    onModalClose: PropTypes.func.isRequired,
-    src: PropTypes.string.isRequired,
-    tags: PropTypes.string,
-}
+  onModalClose: PropTypes.func.isRequired,
+  src: PropTypes.string.isRequired,
+  tags: PropTypes.string,
+};
 
 export default Modal;

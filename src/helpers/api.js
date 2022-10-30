@@ -14,8 +14,6 @@ export const getImages = async (query, page) => {
     const {data} = await pixabayAPI.get('', {params: {q: query, page
     }
     });
-  
-    console.log(data)
       return data;
 }
 
